@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!--
+  UW–Madison Database Group · 50th Reunion
+  ========================================
+  Standalone event page. NOT integrated with the main dept site shell.
+  It will just be linked to from somewhere on database.cs.wisc.edu.
+
+  Images live in /images/reunion/:
+    hero-terrace-sunset.jpg     ← HERO: Memorial Union pier at sunset
+    terrace-duck-sunset.jpg
+    terrace-couple-sunset.jpg
+    campus-spring-banners.jpg
+    bascom-hall-dawn.jpg
+    bascom-hill-spring.jpg
+
+  Almost all content is marked TBD on purpose (placeholders, not copy).
+  We'll fill in as we go.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="50 Years of the UW–Madison Database Group.">
+  <title>50 Years of the UW–Madison Database Group</title>
+  <link rel="icon" type="image/svg+xml" href="images/uw-crest.svg">
+  <link rel="alternate icon" href="images/uw-crest.svg">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #1A1A1A;
+      background: #fff;
+    }
+    a { color: #C5050C; }
+    a:hover { color: #9B0309; }
+    a:focus { outline: 3px solid #E8B547; outline-offset: 2px; }
+    img { max-width: 100%; height: auto; display: block; }
+    h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.2; }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: #1A1A1A; color: #fff; padding: 8px 16px;
+      z-index: 1000; text-decoration: none;
+    }
+    .skip-link:focus { left: 8px; top: 8px; }
+
+    /* Lightweight page header: event branding only, no dept-site chrome */
+    .page-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 3px solid #C5050C;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+    .page-header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 24px;
+      flex-wrap: wrap;
+    }
+    .page-header .brand {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1A1A1A;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .page-header .brand a { color: inherit; text-decoration: none; }
+    .page-header .brand img {
+      width: 32px;
+      height: auto;
+      flex: 0 0 auto;
+    }
+    .page-header .brand .titles {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .page-header .brand small {
+      font-weight: 400;
+      color: #777;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .page-header nav {
+      display: flex;
+      gap: 4px 18px;
+      flex-wrap: wrap;
+    }
+    .page-header nav a {
+      color: #555;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .page-header nav a:hover { color: #C5050C; }
+
+    /* Hero: wide banner crop showing the sky/horizon, then text below */
+    .hero-photo {
+      display: block;
+      width: 100%;
+      height: 28vh;
+      max-height: 280px;
+      min-height: 180px;
+      object-fit: cover;
+      object-position: center 50%;
+    }
+    .hero-intro {
+      padding: 48px 24px 56px;
+      text-align: center;
+    }
+    .hero-intro h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      max-width: 22ch;
+      margin: 0 auto 0.5em;
+      text-wrap: balance;
+    }
+    .nowrap { white-space: nowrap; }
+    .hero-intro .meta {
+      margin: 6px 0;
+      color: #1d1d1f;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      font-weight: 500;
+    }
+    .hero-intro .meta .tbd {
+      font-weight: 400;
+    }
+    .hero-intro .intro-text {
+      max-width: 620px;
+      margin: 36px auto 0;
+      color: #4a4a4f;
+      font-size: clamp(0.98rem, 1.8vw, 1.05rem);
+      line-height: 1.65;
+      text-align: left;
+    }
+    .hero-intro .intro-text p { margin: 0 0 1em; }
+    .hero-intro .intro-text p:last-child { margin-bottom: 0; }
+
+    /* Sections */
+    section.band { padding: 64px 24px; }
+    section.band-alt { background: #F7F7F2; }
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+    h2.section-title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5em;
+      padding-bottom: 10px;
+      position: relative;
+    }
+    h2.section-title::after {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 4px;
+      background: #C5050C;
+      position: absolute;
+      bottom: 0; left: 0;
+    }
+
+    /* TBD style: visually marks placeholder content */
+    .tbd {
+      color: #888;
+      font-style: italic;
+    }
+    .tbd-tag {
+      display: inline-block;
+      background: #F0F0EC;
+      color: #777;
+      border: 1px solid #E0E0DC;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-style: normal;
+    }
+
+    /* Schedule */
+    .schedule-day { margin-top: 24px; }
+    .schedule-day h3 {
+      font-size: 1.15rem;
+      color: #C5050C;
+      border-bottom: 1px solid #E0E0DC;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    /* Travel */
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .travel-card {
+      background: #fff;
+      border: 1px solid #E0E0DC;
+      padding: 20px;
+    }
+    .travel-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .travel-card p { margin: 0; font-size: 0.95rem; }
+    .address-line { margin-top: 28px; }
+    .map-wrap { margin-top: 16px; border: 1px solid #E0E0DC; }
+    .map-wrap iframe { display: block; width: 100%; height: clamp(260px, 45vh, 420px); border: 0; }
+
+    /* Footer (minimal) */
+    .site-footer {
+      background: #1A1A1A;
+      color: #ccc;
+      padding: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .site-footer a { color: #fff; }
+
+    @media (max-width: 768px) {
+      section.band { padding: 48px 20px; }
+      .hero-intro { padding: 40px 20px 36px; }
+      .hero-intro .intro-text { margin-top: 28px; }
+      .page-header-inner { padding: 8px 16px; gap: 6px 16px; }
+      .page-header .brand img { width: 26px; }
+      .page-header .brand { gap: 8px; font-size: 0.95rem; }
+      .page-header .brand small { font-size: 0.68rem; }
+      .page-header nav { gap: 4px 14px; }
+      .page-header nav a { font-size: 0.85rem; }
+    }
+    @media (max-width: 420px) {
+      .hero-intro .meta { font-size: 0.98rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="brand">
+        <a href="#top" aria-label="Top of page">
+          <img src="images/uw-crest.svg" alt="">
+        </a>
+        <span class="titles">
+          <small>50 Years of the</small>
+          <a href="#top"><span class="nowrap">UW–Madison</span> Database Group</a>
+        </span>
+      </p>
+      <nav aria-label="Page sections">
+        <a href="#top">Home</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#sponsors">Sponsors</a>
+        <a href="#travel">Travel</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <img class="hero-photo" id="top" src="images/reunion/terrace-duck-sunset.jpg" alt="People gathered on the Memorial Union pier at sunset over Lake Mendota">
+    <section class="hero-intro">
+      <div class="section-inner">
+        <h1>50 Years of the <span class="nowrap">UW–Madison</span> Database Group</h1>
+        <p class="meta">Date <span class="tbd">TBD</span></p>
+        <p class="meta"><span class="tbd">TBD</span>, Madison, Wisconsin</p>
+        <div class="intro-text">
+          <p>
+            Since 1976, we've worked on database systems, data integration,
+            data science, machine learning, and database theory. Fifty
+            years on, we're bringing the community back: faculty, alumni,
+            students, and friends. Join us in Madison.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="band band-alt" id="schedule">
+      <div class="section-inner">
+        <h2 class="section-title">Schedule</h2>
+        <p class="tbd">TBD</p>
+
+        <div class="schedule-day">
+          <h3>Day 1</h3>
+          <p class="tbd">TBD</p>
+        </div>
+        <div class="schedule-day">
+          <h3>Day 2</h3>
+          <p class="tbd">TBD</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPONSORS -->
+    <section class="band" id="sponsors">
+      <div class="section-inner">
+        <h2 class="section-title">Sponsors</h2>
+        <p class="tbd">TBD</p>
+      </div>
+    </section>
+
+    <!-- TRAVEL -->
+    <section class="band band-alt" id="travel">
+      <div class="section-inner">
+        <h2 class="section-title">Travel</h2>
+        <div class="map-wrap">
+          <iframe
+            title="Map of Morgridge Hall, UW–Madison"
+            src="https://www.google.com/maps?q=43.07268,-89.40822+(Morgridge+Hall)&z=17&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="band" id="contact">
+      <div class="section-inner">
+        <h2 class="section-title">Contact</h2>
+        <p>If you have questions, contact us at <a href="mailto:anhai@cs.wisc.edu">anhai@cs.wisc.edu</a>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    50 Years of the UW–Madison Database Group
+  </footer>
+
+</body>
+</html>
