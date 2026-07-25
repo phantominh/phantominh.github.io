@@ -150,6 +150,35 @@
     }
     .hero-intro .intro-text p { margin: 0 0 1em; }
     .hero-intro .intro-text p:last-child { margin-bottom: 0; }
+    /* Primary registration CTA in the hero */
+    .hero-cta { margin-top: 36px; }
+    .btn-primary {
+      display: inline-block;
+      background: #C5050C;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 15px 40px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(26, 26, 26, 0.15);
+      transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-primary:hover {
+      background: #9B0309;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(26, 26, 26, 0.20);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 5px rgba(26, 26, 26, 0.20);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn-primary,
+      .btn-primary:hover,
+      .btn-primary:active { transition: none; transform: none; }
+    }
 
     /* Sections */
     section.band { padding: 64px 24px; }
@@ -277,8 +306,11 @@
     <section class="hero-intro">
       <div class="section-inner">
         <h1>50 Years of the <span class="nowrap">UW–Madison</span> Database Group</h1>
-        <p class="meta">Date <span class="tbd">TBD</span></p>
-        <p class="meta"><span class="tbd">TBD</span>, Madison, Wisconsin</p>
+        <p class="meta">May 15–16, 2027</p>
+        <p class="meta">Madison, Wisconsin</p>
+        <p class="hero-cta">
+          <a class="btn-primary" href="https://forms.gle/Pk9YSJqKVbXyS5U76" target="_blank" rel="noopener">Register</a>
+        </p>
         <div class="intro-text">
           <p>
             Since 1976, we've worked on database systems, data integration,
