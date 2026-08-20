@@ -140,3 +140,92 @@ hr {
   margin-right: 0.5rem;
   color: #555;
 }
+
+/* Vertical rhythm, largest gap to smallest:
+   section break (~53px) > heading to its content (~20px)
+   > a line and the block attached to it (~17px) > peer items (~14px)
+   > lines wrapping inside one item (leading, ~10px). */
+main section > h1 {
+  line-height: 1.2;
+  margin-top: 2.9rem;
+  margin-bottom: 0.75rem;
+}
+
+/* The photo has no leading of its own, unlike the text above the other headings. */
+main section:first-of-type > h1 {
+  margin-top: 3.4rem;
+}
+
+/* A list attaches to the line introducing it: closer than the heading gap above,
+   but wider than the gap between its own items, so the lead-in isn't absorbed. */
+section h4 {
+  margin: 0;
+}
+
+main section > ul,
+.writing-list {
+  margin-top: 0.15rem;
+  margin-bottom: 0;
+}
+
+.writing-list li {
+  margin-bottom: 0;
+}
+
+footer hr {
+  margin-top: 3rem;
+  margin-bottom: 2.2rem;
+}
+
+/* Publications */
+.pub {
+  margin-top: 0.88rem;   /* "Publications" has no descender: a touch less air keeps it optically equal */
+}
+
+.pub + .pub {
+  margin-top: 1rem;      /* peer entries: same tier as list items */
+}
+
+/* Matches .intro-text p (1.05rem); bold matches the site's emphasis idiom. */
+.pub-title {
+  font-size: 1.05rem;
+  font-weight: bold;
+  line-height: 1.35;
+}
+
+/* One tier below the title: same size, softer ink. Applies to the whole
+   line — my name included — so no coauthor is dimmed relative to anyone. */
+.pub-authors {
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: #4a4a4a;
+}
+
+/* Bold is the academic convention and the site's own emphasis idiom. */
+.pub-me {
+  font-weight: bold;
+}
+
+/* Links trail the venue on the same line. */
+.pub-links {
+  font-size: 0.9rem;
+  margin-left: 0.65rem;
+}
+
+/* Same softened ink as the author line they trail; full black on hover. */
+.pub-links a {
+  color: #4a4a4a;
+  text-underline-offset: 0.2em;
+}
+
+.pub-links a:hover {
+  color: #000000;
+}
+
+.pub-links a + a {
+  margin-left: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .pub-links a + a { margin-left: 0.7rem; }
+}
